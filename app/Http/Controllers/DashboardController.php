@@ -34,11 +34,14 @@ class DashboardController extends Controller
     //get all employees belonging to the logged in user
     public function index(Request $request)
     {
+        $visits = Rate::latest()->paginate(10);
+        $times = EmpTime::latest()->paginate(10);
         $employees=Employee::paginate(10);
        // $employees = addEmployee::where('user_id',auth()->user()->id)->get();
         return view('employees',[
             'employees'=>$employees,
-
+            'visits' => $visits,
+            'times' => $times
         ]);
     }
 
